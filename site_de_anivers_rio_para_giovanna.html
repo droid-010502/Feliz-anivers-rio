@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Giovanna!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8a5c2 0%, #f7d794 50%, #f78fb3 100%);
+            color: #4a235a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Elements for floating sunflowers in the background */
+        .sunflower-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-sunflower {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.35;
+            animation: floatAround 18s infinite linear;
+        }
+
+        .sf1 { top: 8%; left: 10%; animation-duration: 15s; }
+        .sf2 { top: 75%; left: 85%; animation-duration: 22s; }
+        .sf3 { top: 60%; left: 12%; animation-duration: 19s; }
+        .sf4 { top: 20%; left: 80%; animation-duration: 17s; }
+        .sf5 { top: 85%; left: 45%; animation-duration: 25s; }
+
+        @keyframes floatAround {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 245, 248, 0.9);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 218, 121, 0.6);
+            border-radius: 24px;
+            padding: 35px 25px;
+            box-shadow: 0 20px 45px rgba(225, 112, 85, 0.25);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .step.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tela Inicial - Presente */
+        .gift-box {
+            font-size: 80px;
+            cursor: pointer;
+            margin-top: 25px;
+            background: #d63031;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(214, 48, 49, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow: 0 15px 30px rgba(214, 48, 49, 0.7);
+        }
+
+        /* Fotos */
+        .photo-frame {
+            width: 100%;
+            max-width: 380px;
+            max-height: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 4px solid #f7d794;
+            box-shadow: 0 8px 20px rgba(225, 112, 85, 0.2);
+            background-color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Textos */
+        p.message {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #4a235a;
+            text-align: justify;
+            margin: 15px 0;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Custom Scrollbar para textos longos */
+        p.message::-webkit-scrollbar {
+            width: 6px;
+        }
+        p.message::-webkit-scrollbar-track {
+            background: rgba(247, 215, 148, 0.2);
+            border-radius: 10px;
+        }
+        p.message::-webkit-scrollbar-thumb {
+            background: #f78fb3;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #c44569;
+        }
+
+        /* Botão Continuar */
+        .next-btn {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #e66767, #f78fb3);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 103, 103, 0.3);
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(135deg, #ea8685, #e66767);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 103, 103, 0.4);
+        }
+
+        /* Animação do Coração Final */
+        .heart-container {
+            font-size: 4rem;
+            margin-top: 20px;
+            animation: pulse 1.3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+
+        .final-title {
+            font-size: 2rem;
+            color: #c44569;
+            margin-bottom: 10px;
+        }
+
+        .final-subtitle {
+            font-size: 1.8rem;
+            color: #e66767;
+            font-weight: bold;
+        }
+
+        .sunflower-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Girassóis flutuantes de fundo -->
+    <div class="sunflower-bg">
+        <span class="floating-sunflower sf1">🌻</span>
+        <span class="floating-sunflower sf2">🌻</span>
+        <span class="floating-sunflower sf3">🌻</span>
+        <span class="floating-sunflower sf4">🌻</span>
+        <span class="floating-sunflower sf5">🌻</span>
+    </div>
+
+    <div class="container">
+        
+        <!-- TELA 1: Capa Inicial -->
+        <div class="step active" id="step-0">
+            <div class="sunflower-icon">🌻✨</div>
+            <h2>Hoje é seu aniversário?</h2>
+            <p style="font-size: 1.1rem; color: #574b90;">Então clique no presente:</p>
+            <div class="gift-box" onclick="nextStep(1)">
+                🎁
+            </div>
+        </div>
+
+        <!-- TELA 2: Primeira mensagem e Foto 1 -->
+        <div class="step" id="step-1">
+            <p class="message">
+                Hoje é o dia da Srta. Giovanna Krutsch, essa moça incrível, inteligente, companheira, fiel e amorosa.
+            </p>
+            <div class="photo-frame">
+                <img src="foto1.jpg" alt="Foto da Giovanna" onerror="this.src='https://via.placeholder.com/400x400/f8a5c2/ffffff?text=Coloque+a+Foto+1+aqui'">
+            </div>
+            <button class="next-btn" onclick="nextStep(2)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 3: Foto 2 -->
+        <div class="step" id="step-2">
+            <p class="message">
+                Fazem mais de 5 anos que nos encontramos pela primeira vez e recebi essa foto tua, mal sabia eu que inúmeros momentos e histórias aconteceriam.
+            </p>
+            <div class="photo-frame">
+                <img src="foto2.jpg" alt="Foto antiga" onerror="this.src='https://via.placeholder.com/400x400/f8a5c2/ffffff?text=Coloque+a+Foto+2+aqui'">
+            </div>
+            <button class="next-btn" onclick="nextStep(3)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 4: Foto 3 -->
+        <div class="step" id="step-3">
+            <p class="message">
+                Pouco mais de 3 anos depois de nos conhecermos que lembramos de tirar nossa primeira foto juntos, e caramba, já fazem mais de 2 anos dessa kkkkk.
+            </p>
+            <div class="photo-frame">
+                <img src="foto3.jpg" alt="Primeira foto juntos" onerror="this.src='https://via.placeholder.com/400x400/f8a5c2/ffffff?text=Coloque+a+Foto+3+aqui'">
+            </div>
+            <button class="next-btn" onclick="nextStep(4)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 5: Foto 4 -->
+        <div class="step" id="step-4">
+            <p class="message">
+                Meses depois dessa foto, tiramos outra, nossa ultima foto aparecendo juntos, o dia que me senti feliz por ter visto o tanto que confia em mim, a ponto de me procurar em um momento tão difícil, um dia de risadas, de boas conversas, e talvez o dia do provável nosso último beijo kkk.
+            </p>
+            <div class="photo-frame">
+                <img src="foto4.jpg" alt="Última foto juntos" onerror="this.src='https://via.placeholder.com/400x400/f8a5c2/ffffff?text=Coloque+a+Foto+4+aqui'">
+            </div>
+            <button class="next-btn" onclick="nextStep(5)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 6: Carta Longa 1 -->
+        <div class="step" id="step-5">
+            <p class="message">
+                Bom, no fim o que quero dizer é que já se foram mais de 5 anos, com momentos registrados por foto, mensagens ou simplesmente por momentos guardados em nossa mente, e eu sou muito grato por ter tido nesses 5 anos alguém tão especial quanto você, então hoje o parabéns é seu, mas também o meu muito obrigado por tudo que a gente já viveu e quem sabe ainda viveremos, o nosso passado é cheio de momentos que nos pegaram de surpresa, sentimentos fortes, emoções a flor da pele, momentos felizes e tristes, mas o mais importante, ele é cheio de respeito que temos um pelo outro, e eu sou muito feliz por isso, já o futuro, ele é incerto, não sabemos o que virá quanto a nós, mas quanto a você, eu sei que serás uma excelente profissional, continuará sendo uma grande amiga para quem ter esse prazer de ter como amiga e também uma excelente filha, neta, prima, sobrinha, enfim, continuará sendo essa pessoa incrível que tu és.
+            </p>
+            <button class="next-btn" onclick="nextStep(6)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 7: Carta Longa 2 -->
+        <div class="step" id="step-6">
+            <p class="message">
+                Parabéns por ser você Giovanna, por cativar com teu sorriso, por encantar com o brilho dos seus olhos ao falar das coisas que ama, por causar interesse ao ficar toda empolgada falando sobre biologia, livros, teorias estranhas e/ou filmes/séries que tu gosta, eu espero do fundo do meu coração que você tenha uma vida de sucesso, consiga alcançar sonhos na sua carreira e na vida pessoal, que conheça os lugares que almeja, que tenha pessoas incríveis ao seu lado, e que principalmente, nunca perca o brilho dos seus olhos e do seu sorriso, porque sinceramente, há coisas na vida que a gente pode mudar uma rota e alcançar de outra forma, mas essa leveza que você traz no olhar e no sorriso, não é algo que se encontra durante a vida, é algo que vem da sua alma, é algo que nasceu com você, e eu espero que isso nunca saia de você.
+            </p>
+            <button class="next-btn" onclick="nextStep(7)">Continuar ↓</button>
+        </div>
+
+        <!-- TELA 8: Final -->
+        <div class="step" id="step-7">
+            <h1 class="final-title">Feliz aniversário Srta. Krutsch!</h1>
+            <p class="final-subtitle">Eu te amo!</p>
+            <div class="heart-container">❤️</div>
+        </div>
+
+    </div>
+
+    <script>
+        function nextStep(currentStep) {
+            // Esconde todas as etapas
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => step.classList.remove('active'));
+
+            // Mostra a etapa selecionada
+            const nextStepElement = document.getElementById(`step-${currentStep}`);
+            if (nextStepElement) {
+                nextStepElement.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
